@@ -103,15 +103,21 @@ const changeCheck = (id) => {
             type="text" 
             class="todo_input"
             v-model="todoRef" 
-            placeholder="+ TODOを入力" 
+            placeholder="+ TODOを入力"
         />
         <button class="btn" @click="editTodo" v-if="isEditRef">変更</button>
         <button class="btn" @click="addTodo" v-else>追加</button>
     </div>
     <div class="box_list">
         <div class="todo_list" v-for="todo in todoListRef" :key="todo.id">
-            <div class="todo">
-                <input type="checkbox" class="check" /><label>{{todo.task}}</label>
+            <div class="todo" :class="{ fin: todo.checked }">
+                <input 
+                    type="checkbox" 
+                    class="check" 
+                    @change="changeCheck(todo.id)" 
+                    :checked="todo.checked"
+                />
+                <label>{{todo.task}}</label>
             </div>
             <div class="btns">
                 <button class="btn green" @click="showTodo(todo.id)">編</button>
@@ -136,5 +142,11 @@ const changeCheck = (id) => {
 <style scoped>
 .box_input{
     margin-top:20px;
+}
+
+.fin{
+    text-decoration: Line-through;
+    background-color: #ddd;
+    color: #777;
 }
 </style>
